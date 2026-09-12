@@ -50,6 +50,7 @@ public static class GameEvents
     public static Action<float> OnShieldChanged; // (shieldNormalized 0..1)
 
     // Scoring & Combos
+    public static Action<EnemyType, int> OnEnemyKilled; // (enemyType, baseScore)
     public static Action<int> OnScoreChanged; // (currentScore)
     public static Action<int, float> OnComboChanged; // (comboCount, multiplier)
 
@@ -75,6 +76,7 @@ public static class GameEvents
         OnPlayerDied = null;
         OnShieldChanged = null;
 
+        OnEnemyKilled = null;
         OnScoreChanged = null;
         OnComboChanged = null;
 

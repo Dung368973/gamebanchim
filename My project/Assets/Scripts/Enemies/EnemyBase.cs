@@ -245,8 +245,12 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable, IPooledObject
             FXManager.Instance.PlayFeatherBurst(transform.position, birdColor, featherCount);
         }
 
-        // Dispatch score event
-        GameEvents.OnScoreChanged?.Invoke(scoreValue);
+        // Dispatch enemy killed event for ScoreManager (fallback to OnScoreChanged if ScoreManager is absent)
+        GameEvents.OnEnemyKilled?.Invoke(enemyType, scoreValue);
+        if (ScoreManager.Instance == null)
+        {
+            GameEvents.OnScoreChanged?.Invoke(scoreValue);
+        }
 
         // Boss alert/event
         if (isBoss)
