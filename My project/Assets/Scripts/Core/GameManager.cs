@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
         if (currentState == GameState.Boot)
         {
             TransitionTo(GameState.MainMenu);
+            StartGame();
         }
     }
 
