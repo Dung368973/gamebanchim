@@ -1,0 +1,71 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <LangVersion>9.0</LangVersion>
+    <NoWarn>0649</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\My project\Assets\Scripts\Core\GameEvents.cs" Link="GameEvents.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Combat\Damageable.cs" Link="Damageable.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Core\ObjectPool.cs" Link="ObjectPool.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Environment\BoundaryCleaner.cs" Link="BoundaryCleaner.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Core\ProceduralAudio.cs" Link="ProceduralAudio.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Core\AudioManager.cs" Link="AudioManager.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Combat\Bullet.cs" Link="Bullet.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Player\PlayerShooter.cs" Link="PlayerShooter.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Player\PlayerHealth.cs" Link="PlayerHealth.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Player\PlayerController.cs" Link="PlayerController.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Enemies\EnemyBase.cs" Link="EnemyBase.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Enemies\BasicBird.cs" Link="BasicBird.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Enemies\FastBird.cs" Link="FastBird.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Enemies\TankBird.cs" Link="TankBird.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Enemies\EnemyHealthBar.cs" Link="EnemyHealthBar.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Environment\WaveSpawner.cs" Link="WaveSpawner.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Environment\FXManager.cs" Link="FXManager.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Combat\PowerUp.cs" Link="PowerUp.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Core\ScoreManager.cs" Link="ScoreManager.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Core\GameManager.cs" Link="GameManager.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\Environment\ParallaxBackground.cs" Link="ParallaxBackground.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\UI\HUDController.cs" Link="HUDController.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\UI\GameOverUI.cs" Link="GameOverUI.cs" />
+    <Compile Include="..\..\My project\Assets\Scripts\UI\SafeAreaHandler.cs" Link="SafeAreaHandler.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>D:\apps\Unity Editor\6000.5.9f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>D:\apps\Unity Editor\6000.5.9f1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>D:\apps\Unity Editor\6000.5.9f1\Editor\Data\Managed\UnityEngine\UnityEngine.Physics2DModule.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>D:\apps\Unity Editor\6000.5.9f1\Editor\Data\Managed\UnityEngine\UnityEngine.AudioModule.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>D:\apps\Unity Editor\6000.5.9f1\Editor\Data\Managed\UnityEngine\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\My project\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>..\..\My project\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Unity.InputSystem">
+      <HintPath>..\..\My project\Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

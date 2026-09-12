@@ -79,6 +79,18 @@ public class HUDController : MonoBehaviour
         InitializeHUD();
     }
 
+    private void Update()
+    {
+        if (ScoreManager.Instance != null && ScoreManager.Instance.ComboTimer > 0f)
+        {
+            UpdateComboDecay(ScoreManager.Instance.ComboTimer, ScoreManager.DefaultComboDuration);
+        }
+        else if (comboFillBar != null && comboFillBar.fillAmount > 0f)
+        {
+            comboFillBar.fillAmount = 0f;
+        }
+    }
+
     public void InitializeHUD()
     {
         HandleScoreChanged(0);

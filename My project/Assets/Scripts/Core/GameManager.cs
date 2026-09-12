@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Playing:
                 Time.timeScale = 1.0f;
-                if (prev == GameState.GameOver)
+                if (prev == GameState.GameOver || prev == GameState.Paused)
                 {
                     currentWave = 1;
                 }
@@ -148,14 +148,11 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1.0f;
+        currentWave = 1;
 
         if (currentState == GameState.GameOver || currentState == GameState.Paused)
         {
             TransitionTo(GameState.Playing);
-        }
-        else
-        {
-            currentWave = 1;
         }
 
         // Reset player health if available in scene

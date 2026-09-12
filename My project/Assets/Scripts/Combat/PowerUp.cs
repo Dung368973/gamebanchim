@@ -37,6 +37,7 @@ public class PowerUp : MonoBehaviour, IPooledObject
     private Vector2 _velocity;
     private float _spawnX;
     private float _time;
+    private bool _wasMagnetized;
     private bool _isCollected;
     private bool _isReturnedToPool;
 
@@ -170,9 +171,15 @@ public class PowerUp : MonoBehaviour, IPooledObject
             Vector2 dir = toPlayer.sqrMagnitude > 1e-8f ? toPlayer.normalized : Vector2.zero;
             _velocity += dir * (magnetismAccel * dt);
             currentPos += _velocity * dt;
+            _wasMagnetized = true;
         }
         else
         {
+            if (_wasMagnetized)
+            {
+                _spawnX = currentPos.x - (swayAmplitude * Mathf.Sin(swayFrequency * _time));
+                _wasMagnetized = false;
+            }
             _velocity = new Vector2(0f, -floatSpeed);
             float x = _spawnX + (swayAmplitude * Mathf.Sin(swayFrequency * _time));
             float y = currentPos.y - (floatSpeed * dt);
@@ -269,6 +276,7 @@ public class PowerUp : MonoBehaviour, IPooledObject
     {
         _isCollected = false;
         _isReturnedToPool = false;
+        _wasMagnetized = false;
         _time = 0f;
         _spawnX = transform.position.x;
         _velocity = new Vector2(0f, -floatSpeed);

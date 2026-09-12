@@ -38,7 +38,9 @@ public static class ProceduralSpriteGenerator
         SaveAndImportSprite("particle_feather", GenerateParticleFeather(), 100f, TextureWrapMode.Clamp);
         SaveAndImportSprite("particle_spark", GenerateParticleSpark(), 100f, TextureWrapMode.Clamp);
         SaveAndImportSprite("bg_sky_base", GenerateBgSkyBase(), 100f, TextureWrapMode.Repeat);
+        SaveAndImportSprite("bg_stars", GenerateBgStars(), 100f, TextureWrapMode.Repeat);
         SaveAndImportSprite("bg_clouds", GenerateBgClouds(), 100f, TextureWrapMode.Repeat);
+        SaveAndImportSprite("bg_mountains", GenerateBgMountains(), 100f, TextureWrapMode.Repeat);
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
@@ -659,6 +661,38 @@ public static class ProceduralSpriteGenerator
                 {
                     tex.SetPixel(x, y, Color.clear);
                 }
+            }
+        }
+        tex.Apply();
+        return tex;
+    }
+
+    public static Texture2D GenerateBgStars()
+    {
+        return GenerateBgSkyBase();
+    }
+
+    public static Texture2D GenerateBgMountains()
+    {
+        int W = 512, H = 1024;
+        var tex = new Texture2D(W, H, TextureFormat.RGBA32, false);
+        ClearTexture(tex);
+
+        for (int x = 0; x < W; x++)
+        {
+            float t = (float)x / W * Mathf.PI * 2f;
+            int h1 = (int)(280 + Mathf.Sin(t * 3f) * 60f + Mathf.Sin(t * 7f + 1.2f) * 30f);
+            for (int y = h1; y < H; y++)
+            {
+                float alpha = 0.55f * ((float)(y - h1) / (H - h1) * 0.5f + 0.5f);
+                BlendPixel(tex, x, y, new Color(0.11f, 0.16f, 0.29f, 1f), alpha);
+            }
+
+            int h2 = (int)(520 + Mathf.Sin(t * 2f + 0.8f) * 80f + Mathf.Cos(t * 5f + 2.1f) * 45f);
+            for (int y = h2; y < H; y++)
+            {
+                float alpha = 0.72f * ((float)(y - h2) / (H - h2) * 0.4f + 0.6f);
+                BlendPixel(tex, x, y, new Color(0.07f, 0.11f, 0.22f, 1f), alpha);
             }
         }
         tex.Apply();

@@ -146,11 +146,11 @@ public class ParallaxBackground : MonoBehaviour
             var layer = layers[i];
             if (layer.sprite != null && layer.sprite.pixelsPerUnit > 0f)
             {
-                layer.height = layer.sprite.rect.height / layer.sprite.pixelsPerUnit;
+                layer.height = (layer.sprite.rect.height / layer.sprite.pixelsPerUnit) * Mathf.Abs(layer.scale.y);
             }
             else if (layer.height <= 0f)
             {
-                layer.height = DefaultHeight;
+                layer.height = DefaultHeight * Mathf.Abs(layer.scale.y);
             }
 
             if (layer.transformA == null)
