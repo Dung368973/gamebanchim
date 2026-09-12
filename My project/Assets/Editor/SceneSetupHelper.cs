@@ -411,7 +411,7 @@ namespace ShootEmUp.Editor
         {
             GameObject esObj = new GameObject("EventSystem");
             esObj.AddComponent<EventSystem>();
-            esObj.AddComponent<StandaloneInputModule>();
+            esObj.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
         }
         #endregion
 
