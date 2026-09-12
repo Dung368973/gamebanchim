@@ -181,7 +181,7 @@ public class HUDController : MonoBehaviour
                 }
                 else
                 {
-                    heartImages[i].color = isFull ? Color.white : new Color(1f, 1f, 1f, 0.25f);
+                    heartImages[i].color = isFull ? new Color(1f, 0.25f, 0.35f, 1f) : new Color(0.3f, 0.3f, 0.35f, 0.35f);
                 }
             }
         }

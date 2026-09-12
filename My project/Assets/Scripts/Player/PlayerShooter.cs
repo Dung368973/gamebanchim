@@ -57,17 +57,25 @@ public class PlayerShooter : MonoBehaviour
     private void Awake()
     {
         _playerHealth = GetComponent<PlayerHealth>();
-
-        if (bulletPrefab != null && _bulletPool == null)
-        {
-            _bulletPool = new ObjectPool<Bullet>(bulletPrefab, initialPoolCapacity, transform.parent);
-        }
+        EnsurePool();
     }
 
     private void Start()
     {
+        autoFireEnabled = true;
+        _fireTimer = 0f;
+        EnsurePool();
+
         GameEvents.OnPowerUpCollected += HandlePowerUpCollected;
         GameEvents.OnGameRestart += HandleGameRestart;
+    }
+
+    public void EnsurePool()
+    {
+        if (_bulletPool == null && bulletPrefab != null)
+        {
+            _bulletPool = new ObjectPool<Bullet>(bulletPrefab, initialPoolCapacity, transform.parent);
+        }
     }
 
     private void OnDestroy()
@@ -133,6 +141,8 @@ public class PlayerShooter : MonoBehaviour
 
         Vector2 shipPos = transform.position;
 
+        EnsurePool();
+
         for (int i = 0; i < count; i++)
         {
             Vector2 spawnPos = shipPos + muzzles[i];
@@ -146,6 +156,14 @@ public class PlayerShooter : MonoBehaviour
 
                 Bullet bullet = _bulletPool.Get(spawnPos, rot);
                 bullet.SetPool(_bulletPool);
+                bullet.Initialize(dir, bulletSpeed, bulletDamage, playerBullet: true);
+            }
+            else if (bulletPrefab != null)
+            {
+                float angleDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+                Quaternion rot = Quaternion.Euler(0f, 0f, angleDeg);
+
+                Bullet bullet = Instantiate(bulletPrefab, spawnPos, rot);
                 bullet.Initialize(dir, bulletSpeed, bulletDamage, playerBullet: true);
             }
         }
@@ -214,6 +232,7 @@ public class PlayerShooter : MonoBehaviour
 
     private void HandleGameRestart()
     {
+        autoFireEnabled = true;
         weaponLevel = 0;
         isRapidFire = false;
         _spreadDurationTimer = 0f;

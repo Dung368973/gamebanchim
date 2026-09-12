@@ -67,7 +67,7 @@ namespace ShootEmUp.Editor
             GameObject playerObj = SetupPlayer(mainCam, bulletPrefab);
 
             // 9. Setup Responsive UI Canvas & HUD
-            GameObject canvasObj = SetupUICanvas();
+            GameObject canvasObj = SetupUICanvas(mainCam);
 
             // 10. Setup EventSystem
             SetupEventSystem();
@@ -300,11 +300,14 @@ namespace ShootEmUp.Editor
         #endregion
 
         #region UI Canvas Setup
-        private static GameObject SetupUICanvas()
+        private static GameObject SetupUICanvas(Camera cam)
         {
             GameObject canvasObj = new GameObject("UICanvas");
             var canvas = canvasObj.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            canvas.worldCamera = cam;
+            canvas.planeDistance = 5f;
+            canvas.sortingOrder = 100;
 
             var scaler = canvasObj.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
@@ -331,9 +334,17 @@ namespace ShootEmUp.Editor
             // Top Header: Score & Wave
             GameObject topBar = CreateUIObject("TopBar", safeAreaObj.transform, new Vector2(0f, 0.92f), new Vector2(1f, 1f));
 
-            Text scoreText = CreateText("ScoreText", topBar.transform, "SCORE: 0", 42, TextAnchor.UpperLeft, new Vector2(0.05f, 0.5f), new Vector2(0.5f, 1f));
-            Text highText = CreateText("HighScoreText", topBar.transform, "BEST: 0", 28, TextAnchor.LowerLeft, new Vector2(0.05f, 0f), new Vector2(0.5f, 0.5f));
-            Text waveText = CreateText("WaveText", topBar.transform, "WAVE 1", 42, TextAnchor.UpperRight, new Vector2(0.5f, 0.5f), new Vector2(0.95f, 1f));
+            Text scoreText = CreateText("ScoreText", topBar.transform, "SCORE: 0", 40, TextAnchor.UpperLeft, new Vector2(0.04f, 0.5f), new Vector2(0.42f, 1f));
+            Text highText = CreateText("HighScoreText", topBar.transform, "BEST: 0", 26, TextAnchor.LowerLeft, new Vector2(0.04f, 0f), new Vector2(0.42f, 0.5f));
+            Text waveText = CreateText("WaveText", topBar.transform, "WAVE 1", 38, TextAnchor.MiddleCenter, new Vector2(0.42f, 0.1f), new Vector2(0.76f, 0.9f));
+
+            // Pause Button in TopBar
+            GameObject pauseBtnObj = CreateUIObject("PauseButton", topBar.transform, new Vector2(0.78f, 0.15f), new Vector2(0.96f, 0.85f));
+            Image pauseBtnImg = pauseBtnObj.AddComponent<Image>();
+            pauseBtnImg.color = new Color(0.12f, 0.22f, 0.35f, 0.90f);
+            Button pauseBtn = pauseBtnObj.AddComponent<Button>();
+            Text pauseBtnText = CreateText("PauseBtnText", pauseBtnObj.transform, "❚❚", 30, TextAnchor.MiddleCenter, Vector2.zero, Vector2.one);
+            pauseBtnText.color = new Color(0.85f, 0.95f, 1.0f, 1f);
 
             SetSerializedField(hud, "scoreText", scoreText);
             SetSerializedField(hud, "highScoreText", highText);
@@ -403,6 +414,35 @@ namespace ShootEmUp.Editor
             SetSerializedField(gameOverUI, "restartButton", restartBtn);
 
             modalPanel.SetActive(false);
+
+            // 4. Pause UI
+            var pauseUI = safeAreaObj.AddComponent<PauseUI>();
+            GameObject pauseModal = CreateUIObject("PauseModal", safeAreaObj.transform, new Vector2(0.12f, 0.28f), new Vector2(0.88f, 0.72f));
+            Image pauseModalBg = pauseModal.AddComponent<Image>();
+            pauseModalBg.color = new Color(0.04f, 0.06f, 0.12f, 0.96f);
+
+            Text pauseTitle = CreateText("PauseTitleText", pauseModal.transform, "GAME PAUSED", 50, TextAnchor.MiddleCenter, new Vector2(0f, 0.70f), new Vector2(1f, 0.92f));
+            pauseTitle.color = new Color(0.3f, 0.85f, 1.0f, 1f);
+
+            // Resume Button
+            GameObject resumeBtnObj = CreateUIObject("ResumeButton", pauseModal.transform, new Vector2(0.18f, 0.42f), new Vector2(0.82f, 0.58f));
+            Image resumeBtnImg = resumeBtnObj.AddComponent<Image>();
+            resumeBtnImg.color = new Color(0.15f, 0.75f, 0.45f, 1f);
+            Button resumeBtn = resumeBtnObj.AddComponent<Button>();
+            CreateText("ResumeBtnText", resumeBtnObj.transform, "RESUME", 34, TextAnchor.MiddleCenter, Vector2.zero, Vector2.one);
+
+            // Restart Button in Pause Modal
+            GameObject pauseRestartBtnObj = CreateUIObject("PauseRestartButton", pauseModal.transform, new Vector2(0.18f, 0.18f), new Vector2(0.82f, 0.34f));
+            Image pauseRestartBtnImg = pauseRestartBtnObj.AddComponent<Image>();
+            pauseRestartBtnImg.color = new Color(0.85f, 0.32f, 0.25f, 1f);
+            Button pauseRestartBtn = pauseRestartBtnObj.AddComponent<Button>();
+            CreateText("PauseRestartBtnText", pauseRestartBtnObj.transform, "RESTART", 34, TextAnchor.MiddleCenter, Vector2.zero, Vector2.one);
+
+            SetSerializedField(pauseUI, "pauseButton", pauseBtn);
+            SetSerializedField(pauseUI, "pauseModal", pauseModal);
+            SetSerializedField(pauseUI, "resumeButton", resumeBtn);
+            SetSerializedField(pauseUI, "restartButton", pauseRestartBtn);
+            pauseModal.SetActive(false);
 
             return canvasObj;
         }

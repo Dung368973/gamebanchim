@@ -55,6 +55,12 @@ public class BoundaryCleaner : MonoBehaviour
         // When used as a boundary box trigger, clean the passing entity
         if (collision != null && collision.gameObject != gameObject)
         {
+            // Never deactivate or clean the player
+            if (collision.CompareTag("Player") || collision.GetComponent<PlayerHealth>() != null || collision.GetComponentInParent<PlayerHealth>() != null)
+            {
+                return;
+            }
+
             var otherCleaner = collision.GetComponent<BoundaryCleaner>();
             if (otherCleaner != null)
             {

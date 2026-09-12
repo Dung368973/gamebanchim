@@ -91,6 +91,7 @@ public class GameOverUI : MonoBehaviour
 
         if (modalPanel != null)
         {
+            modalPanel.transform.SetAsLastSibling();
             modalPanel.SetActive(true);
         }
 
@@ -105,6 +106,11 @@ public class GameOverUI : MonoBehaviour
         if (modalPanel != null)
         {
             modalPanel.SetActive(false);
+        }
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.RestartGame();
         }
 
         GameEvents.OnGameRestart?.Invoke();

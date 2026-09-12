@@ -49,10 +49,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (currentState == GameState.Boot)
+        Time.timeScale = 1.0f;
+        if (currentState == GameState.Boot || currentState == GameState.MainMenu)
         {
-            TransitionTo(GameState.MainMenu);
-            StartGame();
+            currentState = GameState.Playing;
+            GameEvents.OnWaveStarted?.Invoke(currentWave);
         }
     }
 
@@ -151,16 +152,15 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
         currentWave = 1;
 
-        if (currentState == GameState.GameOver || currentState == GameState.Paused)
-        {
-            TransitionTo(GameState.Playing);
-        }
+        TransitionTo(GameState.Playing);
 
-        // Reset player health if available in scene
-        var playerHealth = FindAnyObjectByType<PlayerHealth>();
+        // Reset player health and position if available in scene
+        var playerHealth = FindAnyObjectByType<PlayerHealth>(FindObjectsInactive.Include);
         if (playerHealth != null)
         {
+            playerHealth.gameObject.SetActive(true);
             playerHealth.ResetHealth();
+            playerHealth.transform.position = new Vector3(0f, -3.5f, 0f);
         }
 
         GameEvents.OnWaveStarted?.Invoke(currentWave);
@@ -168,10 +168,7 @@ public class GameManager : MonoBehaviour
 
     private void HandlePlayerDied()
     {
-        if (currentState == GameState.Playing || currentState == GameState.WaveTransition)
-        {
-            TransitionTo(GameState.GameOver);
-        }
+        TransitionTo(GameState.GameOver);
     }
 
     private void HandleWaveCompleted(int waveNumber)
@@ -195,13 +192,17 @@ public class GameManager : MonoBehaviour
         return (from, to) switch
         {
             (GameState.Boot, GameState.MainMenu) => true,
+            (GameState.Boot, GameState.Playing) => true,
+            (GameState.Boot, GameState.GameOver) => true,
             (GameState.MainMenu, GameState.Playing) => true,
+            (GameState.MainMenu, GameState.GameOver) => true,
             (GameState.Playing, GameState.Paused) => true,
             (GameState.Paused, GameState.Playing) => true,
             (GameState.Playing, GameState.WaveTransition) => true,
             (GameState.WaveTransition, GameState.Playing) => true,
             (GameState.Playing, GameState.GameOver) => true,
             (GameState.WaveTransition, GameState.GameOver) => true,
+            (GameState.Paused, GameState.GameOver) => true,
             (GameState.GameOver, GameState.Playing) => true,
             (GameState.GameOver, GameState.MainMenu) => true,
             _ => false
