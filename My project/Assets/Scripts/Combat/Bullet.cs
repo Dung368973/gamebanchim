@@ -106,6 +106,12 @@ public class Bullet : MonoBehaviour, IPooledObject
         // Player bullet hitting enemy
         if (isPlayerBullet)
         {
+            // Never hit or damage the player
+            if (other.CompareTag("Player") || other.GetComponent<PlayerHealth>() != null || other.GetComponentInParent<PlayerHealth>() != null)
+            {
+                return;
+            }
+
             IDamageable damageable = other.GetComponent<IDamageable>() ?? other.GetComponentInParent<IDamageable>();
             if (damageable != null && damageable.CurrentHealth > 0)
             {

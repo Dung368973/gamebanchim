@@ -163,16 +163,16 @@ namespace ShootEmUp.Editor
             var cleanerObj = new GameObject("BoundaryCleanerZone");
             cleanerObj.transform.SetParent(root.transform);
             var cleaner = cleanerObj.AddComponent<BoundaryCleaner>();
-            cleaner.MinY = -7.5f;
-            cleaner.MaxY = 7.5f;
-            cleaner.MinX = -4.5f;
-            cleaner.MaxX = 4.5f;
+            cleaner.MinY = -8.5f;
+            cleaner.MaxY = 8.5f;
+            cleaner.MinX = -25.0f;
+            cleaner.MaxX = 25.0f;
             SetSerializedField(cleaner, "cleanOnUpdate", false);
             SetSerializedField(cleaner, "cleanOnTriggerExit", true);
 
             var boxCol = cleanerObj.AddComponent<BoxCollider2D>();
             boxCol.isTrigger = true;
-            boxCol.size = new Vector2(16f, 20f);
+            boxCol.size = new Vector2(60f, 26f);
 
             return root;
         }
@@ -196,7 +196,7 @@ namespace ShootEmUp.Editor
                 sprite = starsSprite,
                 scrollSpeed = 0.8f,
                 sortingOrder = -10,
-                scale = new Vector2(1.5f, 1.25f),
+                scale = new Vector2(8.0f, 1.25f),
                 height = 10.24f * 1.25f,
                 tintColor = Color.white
             };
@@ -207,7 +207,7 @@ namespace ShootEmUp.Editor
                 sprite = cloudsSprite,
                 scrollSpeed = 1.4f,
                 sortingOrder = -5,
-                scale = new Vector2(1.5f, 1.25f),
+                scale = new Vector2(8.0f, 1.25f),
                 height = 10.24f * 1.25f,
                 tintColor = new Color(1f, 1f, 1f, 0.45f)
             };
@@ -218,7 +218,7 @@ namespace ShootEmUp.Editor
                 sprite = mountainsSprite,
                 scrollSpeed = 2.6f,
                 sortingOrder = -1,
-                scale = new Vector2(1.8f, 1.25f),
+                scale = new Vector2(8.0f, 1.25f),
                 height = 10.24f * 1.25f,
                 tintColor = new Color(0.85f, 0.95f, 1f, 0.70f)
             };
@@ -241,8 +241,8 @@ namespace ShootEmUp.Editor
             SetSerializedField(spawner, "tankBirdPrefab", tank);
             SetSerializedField(spawner, "autoStart", true);
             SetSerializedField(spawner, "spawnY", 6.8f);
-            SetSerializedField(spawner, "spawnMinX", -2.5f);
-            SetSerializedField(spawner, "spawnMaxX", 2.5f);
+            SetSerializedField(spawner, "spawnMinX", -8.0f);
+            SetSerializedField(spawner, "spawnMaxX", 8.0f);
 
             return spawnerObj;
         }
@@ -294,6 +294,7 @@ namespace ShootEmUp.Editor
             SetSerializedField(shooter, "bulletSpeed", 14.0f);
             SetSerializedField(shooter, "baseFireInterval", 0.20f);
             SetSerializedField(shooter, "autoFireEnabled", true);
+            SetSerializedField(shooter, "defaultMuzzleOffset", new Vector2(0f, 0.65f));
 
             return player;
         }

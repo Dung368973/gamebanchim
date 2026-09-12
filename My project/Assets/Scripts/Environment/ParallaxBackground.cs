@@ -51,7 +51,48 @@ public class ParallaxBackground : MonoBehaviour
         float dt = Time.deltaTime;
         if (dt <= 0f) return;
 
+        AdjustLayerScales();
         UpdateLayers(dt);
+    }
+
+    /// <summary>
+    /// Dynamically expands layer width to eliminate black side borders across any resolution or aspect ratio.
+    /// </summary>
+    public void AdjustLayerScales()
+    {
+        if (layers == null) return;
+
+        Camera cam = Camera.main;
+        float screenHalfWidth = 14f;
+        if (cam != null && cam.orthographic)
+        {
+            screenHalfWidth = cam.orthographicSize * cam.aspect;
+        }
+
+        float desiredWidth = Mathf.Max(screenHalfWidth * 2f + 6f, 36f);
+
+        for (int i = 0; i < layers.Length; i++)
+        {
+            var layer = layers[i];
+            float spriteWidth = (layer.sprite != null && layer.sprite.pixelsPerUnit > 0f)
+                ? (layer.sprite.rect.width / layer.sprite.pixelsPerUnit)
+                : 5.12f;
+
+            float targetScaleX = Mathf.Max(layer.scale.x, desiredWidth / Mathf.Max(0.1f, spriteWidth));
+
+            if (layer.transformA != null && Mathf.Abs(layer.transformA.localScale.x - targetScaleX) > 0.01f)
+            {
+                Vector3 s = layer.transformA.localScale;
+                s.x = targetScaleX;
+                layer.transformA.localScale = s;
+            }
+            if (layer.transformB != null && Mathf.Abs(layer.transformB.localScale.x - targetScaleX) > 0.01f)
+            {
+                Vector3 s = layer.transformB.localScale;
+                s.x = targetScaleX;
+                layer.transformB.localScale = s;
+            }
+        }
     }
 
     /// <summary>
@@ -179,5 +220,7 @@ public class ParallaxBackground : MonoBehaviour
                 layer.transformB = objB.transform;
             }
         }
+
+        AdjustLayerScales();
     }
 }
