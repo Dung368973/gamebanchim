@@ -479,10 +479,10 @@ namespace ShootEmUp.Editor
             SetSerializedField(bullet, "isPlayerBullet", true);
 
             var cleaner = obj.AddComponent<BoundaryCleaner>();
-            cleaner.MinY = -7.5f;
-            cleaner.MaxY = 7.5f;
-            cleaner.MinX = -4.5f;
-            cleaner.MaxX = 4.5f;
+            cleaner.MinY = -8.5f;
+            cleaner.MaxY = 8.5f;
+            cleaner.MinX = -25.0f;
+            cleaner.MaxX = 25.0f;
 
             GameObject prefabAsset = PrefabUtility.SaveAsPrefabAsset(obj, path);
             UnityEngine.Object.DestroyImmediate(obj);
@@ -507,7 +507,10 @@ namespace ShootEmUp.Editor
 
             var pu = obj.AddComponent<PowerUp>();
             var cleaner = obj.AddComponent<BoundaryCleaner>();
-            cleaner.MinY = -7.5f;
+            cleaner.MinY = -8.5f;
+            cleaner.MaxY = 8.5f;
+            cleaner.MinX = -25.0f;
+            cleaner.MaxX = 25.0f;
 
             GameObject prefabAsset = PrefabUtility.SaveAsPrefabAsset(obj, path);
             UnityEngine.Object.DestroyImmediate(obj);
@@ -532,7 +535,10 @@ namespace ShootEmUp.Editor
 
             var bird = obj.AddComponent<BasicBird>();
             var cleaner = obj.AddComponent<BoundaryCleaner>();
-            cleaner.MinY = -7.5f;
+            cleaner.MinY = -8.5f;
+            cleaner.MaxY = 8.5f;
+            cleaner.MinX = -25.0f;
+            cleaner.MaxX = 25.0f;
 
             GameObject prefabAsset = PrefabUtility.SaveAsPrefabAsset(obj, path);
             UnityEngine.Object.DestroyImmediate(obj);
@@ -557,7 +563,10 @@ namespace ShootEmUp.Editor
 
             var bird = obj.AddComponent<FastBird>();
             var cleaner = obj.AddComponent<BoundaryCleaner>();
-            cleaner.MinY = -7.5f;
+            cleaner.MinY = -8.5f;
+            cleaner.MaxY = 8.5f;
+            cleaner.MinX = -25.0f;
+            cleaner.MaxX = 25.0f;
 
             GameObject prefabAsset = PrefabUtility.SaveAsPrefabAsset(obj, path);
             UnityEngine.Object.DestroyImmediate(obj);
@@ -584,7 +593,10 @@ namespace ShootEmUp.Editor
             SetSerializedField(bird, "powerUpDropPrefab", dropPrefab);
 
             var cleaner = obj.AddComponent<BoundaryCleaner>();
-            cleaner.MinY = -7.5f;
+            cleaner.MinY = -8.5f;
+            cleaner.MaxY = 8.5f;
+            cleaner.MinX = -25.0f;
+            cleaner.MaxX = 25.0f;
 
             GameObject prefabAsset = PrefabUtility.SaveAsPrefabAsset(obj, path);
             UnityEngine.Object.DestroyImmediate(obj);

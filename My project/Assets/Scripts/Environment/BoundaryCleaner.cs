@@ -37,12 +37,67 @@ public class BoundaryCleaner : MonoBehaviour
     public float MinX { get => minX; set => minX = value; }
     public float MaxX { get => maxX; set => maxX = value; }
 
+    private void Awake()
+    {
+        AdjustBoundsToCamera();
+    }
+
+    private void OnEnable()
+    {
+        AdjustBoundsToCamera();
+    }
+
+    private static Camera SafeGetMainCamera()
+    {
+        try
+        {
+            return Camera.main;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Expands boundary limits to match the active Camera's viewport with padding.
+    /// </summary>
+    public void AdjustBoundsToCamera()
+    {
+        Camera cam = SafeGetMainCamera();
+        if (cam != null && cam.orthographic)
+        {
+            float halfWidth = cam.orthographicSize * cam.aspect;
+            minX = Mathf.Min(minX, -halfWidth - 2.5f);
+            maxX = Mathf.Max(maxX, halfWidth + 2.5f);
+            float halfHeight = cam.orthographicSize;
+            minY = Mathf.Min(minY, -halfHeight - 2.5f);
+            maxY = Mathf.Max(maxY, halfHeight + 2.5f);
+        }
+    }
+
     private void Update()
     {
         if (!cleanOnUpdate) return;
 
+        float effectiveMinX = minX;
+        float effectiveMaxX = maxX;
+        float effectiveMinY = minY;
+        float effectiveMaxY = maxY;
+
+        Camera cam = SafeGetMainCamera();
+        if (cam != null && cam.orthographic)
+        {
+            float halfWidth = cam.orthographicSize * cam.aspect;
+            effectiveMinX = Mathf.Min(effectiveMinX, -halfWidth - 2.5f);
+            effectiveMaxX = Mathf.Max(effectiveMaxX, halfWidth + 2.5f);
+            float halfHeight = cam.orthographicSize;
+            effectiveMinY = Mathf.Min(effectiveMinY, -halfHeight - 2.5f);
+            effectiveMaxY = Mathf.Max(effectiveMaxY, halfHeight + 2.5f);
+        }
+
         Vector3 pos = transform.position;
-        if (pos.y < minY || pos.y > maxY || pos.x < minX || pos.x > maxX)
+        if (pos.y < effectiveMinY || pos.y > effectiveMaxY || pos.x < effectiveMinX || pos.x > effectiveMaxX)
         {
             Clean();
         }
@@ -93,12 +148,29 @@ public class BoundaryCleaner : MonoBehaviour
 
     /// <summary>
     /// Static utility to check if a position is beyond standard game boundaries.
+    /// Dynamically expands bounds when Camera.main is active to support widescreen / any aspect ratio.
     /// </summary>
     public static bool IsOutOfBounds(Vector3 position, float padX = 0f, float padY = 0f)
     {
-        return position.y < (DefaultMinY - padY) ||
-               position.y > (DefaultMaxY + padY) ||
-               position.x < (DefaultMinX - padX) ||
-               position.x > (DefaultMaxX + padX);
+        float minX = DefaultMinX;
+        float maxX = DefaultMaxX;
+        float minY = DefaultMinY;
+        float maxY = DefaultMaxY;
+
+        Camera cam = SafeGetMainCamera();
+        if (cam != null && cam.orthographic)
+        {
+            float halfWidth = cam.orthographicSize * cam.aspect;
+            minX = Mathf.Min(minX, -halfWidth - 2.5f);
+            maxX = Mathf.Max(maxX, halfWidth + 2.5f);
+            float halfHeight = cam.orthographicSize;
+            minY = Mathf.Min(minY, -halfHeight - 2.5f);
+            maxY = Mathf.Max(maxY, halfHeight + 2.5f);
+        }
+
+        return position.y < (minY - padY) ||
+               position.y > (maxY + padY) ||
+               position.x < (minX - padX) ||
+               position.x > (maxX + padX);
     }
 }
