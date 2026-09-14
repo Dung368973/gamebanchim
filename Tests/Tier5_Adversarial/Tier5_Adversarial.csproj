@@ -8,30 +8,30 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\My project\Assets\Scripts\Core\GameEvents.cs" Link="GameEvents.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Combat\Damageable.cs" Link="Damageable.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Core\ObjectPool.cs" Link="ObjectPool.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Environment\BoundaryCleaner.cs" Link="BoundaryCleaner.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Core\ProceduralAudio.cs" Link="ProceduralAudio.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Core\AudioManager.cs" Link="AudioManager.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Combat\Bullet.cs" Link="Bullet.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Player\PlayerShooter.cs" Link="PlayerShooter.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Player\PlayerHealth.cs" Link="PlayerHealth.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Player\PlayerController.cs" Link="PlayerController.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Enemies\EnemyBase.cs" Link="EnemyBase.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Enemies\BasicBird.cs" Link="BasicBird.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Enemies\FastBird.cs" Link="FastBird.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Enemies\TankBird.cs" Link="TankBird.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Enemies\EnemyHealthBar.cs" Link="EnemyHealthBar.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Environment\WaveSpawner.cs" Link="WaveSpawner.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Environment\FXManager.cs" Link="FXManager.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Combat\PowerUp.cs" Link="PowerUp.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Core\ScoreManager.cs" Link="ScoreManager.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Core\GameManager.cs" Link="GameManager.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\Environment\ParallaxBackground.cs" Link="ParallaxBackground.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\UI\HUDController.cs" Link="HUDController.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\UI\GameOverUI.cs" Link="GameOverUI.cs" />
-    <Compile Include="..\..\My project\Assets\Scripts\UI\SafeAreaHandler.cs" Link="SafeAreaHandler.cs" />
+    <Compile Include="..\..\Assets\Scripts\Core\GameEvents.cs" Link="GameEvents.cs" />
+    <Compile Include="..\..\Assets\Scripts\Combat\Damageable.cs" Link="Damageable.cs" />
+    <Compile Include="..\..\Assets\Scripts\Core\ObjectPool.cs" Link="ObjectPool.cs" />
+    <Compile Include="..\..\Assets\Scripts\Environment\BoundaryCleaner.cs" Link="BoundaryCleaner.cs" />
+    <Compile Include="..\..\Assets\Scripts\Core\ProceduralAudio.cs" Link="ProceduralAudio.cs" />
+    <Compile Include="..\..\Assets\Scripts\Core\AudioManager.cs" Link="AudioManager.cs" />
+    <Compile Include="..\..\Assets\Scripts\Combat\Bullet.cs" Link="Bullet.cs" />
+    <Compile Include="..\..\Assets\Scripts\Player\PlayerShooter.cs" Link="PlayerShooter.cs" />
+    <Compile Include="..\..\Assets\Scripts\Player\PlayerHealth.cs" Link="PlayerHealth.cs" />
+    <Compile Include="..\..\Assets\Scripts\Player\PlayerController.cs" Link="PlayerController.cs" />
+    <Compile Include="..\..\Assets\Scripts\Enemies\EnemyBase.cs" Link="EnemyBase.cs" />
+    <Compile Include="..\..\Assets\Scripts\Enemies\BasicBird.cs" Link="BasicBird.cs" />
+    <Compile Include="..\..\Assets\Scripts\Enemies\FastBird.cs" Link="FastBird.cs" />
+    <Compile Include="..\..\Assets\Scripts\Enemies\TankBird.cs" Link="TankBird.cs" />
+    <Compile Include="..\..\Assets\Scripts\Enemies\EnemyHealthBar.cs" Link="EnemyHealthBar.cs" />
+    <Compile Include="..\..\Assets\Scripts\Environment\WaveSpawner.cs" Link="WaveSpawner.cs" />
+    <Compile Include="..\..\Assets\Scripts\Environment\FXManager.cs" Link="FXManager.cs" />
+    <Compile Include="..\..\Assets\Scripts\Combat\PowerUp.cs" Link="PowerUp.cs" />
+    <Compile Include="..\..\Assets\Scripts\Core\ScoreManager.cs" Link="ScoreManager.cs" />
+    <Compile Include="..\..\Assets\Scripts\Core\GameManager.cs" Link="GameManager.cs" />
+    <Compile Include="..\..\Assets\Scripts\Environment\ParallaxBackground.cs" Link="ParallaxBackground.cs" />
+    <Compile Include="..\..\Assets\Scripts\UI\HUDController.cs" Link="HUDController.cs" />
+    <Compile Include="..\..\Assets\Scripts\UI\GameOverUI.cs" Link="GameOverUI.cs" />
+    <Compile Include="..\..\Assets\Scripts\UI\SafeAreaHandler.cs" Link="SafeAreaHandler.cs" />
   </ItemGroup>
 
   <ItemGroup>
