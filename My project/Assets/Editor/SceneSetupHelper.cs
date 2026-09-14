@@ -335,8 +335,17 @@ namespace ShootEmUp.Editor
             // Top Header: Score & Wave
             GameObject topBar = CreateUIObject("TopBar", safeAreaObj.transform, new Vector2(0f, 0.92f), new Vector2(1f, 1f));
 
-            Text scoreText = CreateText("ScoreText", topBar.transform, "SCORE: 0", 40, TextAnchor.UpperLeft, new Vector2(0.04f, 0.5f), new Vector2(0.42f, 1f));
-            Text highText = CreateText("HighScoreText", topBar.transform, "BEST: 0", 26, TextAnchor.LowerLeft, new Vector2(0.04f, 0f), new Vector2(0.42f, 0.5f));
+            Text scoreText = CreateText("ScoreText", topBar.transform, "SCORE: 0", 34, TextAnchor.MiddleLeft, new Vector2(0.04f, 0.5f), new Vector2(0.42f, 0.98f));
+            scoreText.fontStyle = FontStyle.Bold;
+            scoreText.horizontalOverflow = HorizontalWrapMode.Overflow;
+            scoreText.verticalOverflow = VerticalWrapMode.Overflow;
+
+            Text highText = CreateText("HighScoreText", topBar.transform, "BEST: 0", 24, TextAnchor.MiddleLeft, new Vector2(0.04f, 0.02f), new Vector2(0.42f, 0.5f));
+            highText.fontStyle = FontStyle.Bold;
+            highText.color = new Color(1f, 0.85f, 0.2f, 1f);
+            highText.horizontalOverflow = HorizontalWrapMode.Overflow;
+            highText.verticalOverflow = VerticalWrapMode.Overflow;
+
             Text waveText = CreateText("WaveText", topBar.transform, "WAVE 1", 38, TextAnchor.MiddleCenter, new Vector2(0.42f, 0.1f), new Vector2(0.76f, 0.9f));
 
             // Pause Button in TopBar

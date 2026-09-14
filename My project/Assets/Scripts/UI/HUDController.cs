@@ -18,6 +18,8 @@ public class HUDController : MonoBehaviour
     [SerializeField] private TMP_Text scoreTMP;
     [SerializeField] private Text highScoreText;
     [SerializeField] private TMP_Text highScoreTMP;
+    [SerializeField] private string scorePrefix = "SCORE: ";
+    [SerializeField] private string highScorePrefix = "BEST: ";
 
     [Header("Wave Display")]
     [SerializeField] private Text waveText;
@@ -93,24 +95,29 @@ public class HUDController : MonoBehaviour
 
     public void InitializeHUD()
     {
+        int storedHigh = ScoreManager.Instance != null
+            ? ScoreManager.Instance.HighScore
+            : PlayerPrefs.GetInt(ScoreManager.HighScoreKey, 0);
+        UpdateHighScoreText(storedHigh);
+
         HandleScoreChanged(0);
         HandleWaveStarted(1);
         HandleComboChanged(0, 1.0f);
         HandlePlayerHealthChanged(3, 3);
         HandleShieldChanged(0f);
         HandleBossDefeated();
-
-        int storedHigh = PlayerPrefs.GetInt("HIGH_SCORE_KEY", 0);
-        UpdateHighScoreText(storedHigh);
     }
 
     public void HandleScoreChanged(int score)
     {
         _currentScore = Mathf.Max(0, score);
-        string formatted = _currentScore.ToString("N0", CultureInfo.InvariantCulture);
+        string formatted = $"{scorePrefix}{_currentScore.ToString("N0", CultureInfo.InvariantCulture)}";
         SetText(scoreText, scoreTMP, formatted);
 
-        int currentHigh = PlayerPrefs.GetInt("HIGH_SCORE_KEY", 0);
+        int currentHigh = ScoreManager.Instance != null
+            ? ScoreManager.Instance.HighScore
+            : PlayerPrefs.GetInt(ScoreManager.HighScoreKey, 0);
+
         if (_currentScore > currentHigh)
         {
             currentHigh = _currentScore;
@@ -120,7 +127,7 @@ public class HUDController : MonoBehaviour
 
     public void UpdateHighScoreText(int high)
     {
-        string formatted = high.ToString("N0", CultureInfo.InvariantCulture);
+        string formatted = $"{highScorePrefix}{high.ToString("N0", CultureInfo.InvariantCulture)}";
         SetText(highScoreText, highScoreTMP, formatted);
     }
 
